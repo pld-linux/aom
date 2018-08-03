@@ -7,8 +7,9 @@ Release:	1
 License:	BSD
 Group:		Libraries
 URL:		http://aomedia.org/
-Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz
-# Source0-md5:	65ee0b22640557ee82e11852912f90bb
+# Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz
+Source0:	v%{version}.tar.gz
+# Source0-md5:	dd4689f0425e55dbc255eab73989dca5
 Patch0:		%{name}-build.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
