@@ -3,7 +3,7 @@
 Summary:	Royalty-free next-generation video format
 Name:		aom
 Version:	1.0.0
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 URL:		http://aomedia.org/
@@ -44,6 +44,8 @@ format.
 %prep
 %setup -qc
 %patch0 -p1
+
+%{__sed} -i -e 's/v0\.1\.0/v%{version}/' CHANGELOG
 
 %build
 install -d build; cd build
