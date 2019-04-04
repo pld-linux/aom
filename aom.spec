@@ -11,7 +11,9 @@ Version:	%{basever}.%{subver}
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	https://aomedia.googlesource.com/aom/+archive/v%{basever}-%{subver}.tar.gz?fake=/%{name}-%{version}.tar.gz
+# tarball is recreated with different md5 on each download
+#Source0:	https://aomedia.googlesource.com/aom/+archive/v%{basever}-%{subver}.tar.gz?fake=/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	5b22f5d026057ded5339bd17fd214e8a
 Patch0:		%{name}-build.patch
 URL:		https://aomedia.org/
