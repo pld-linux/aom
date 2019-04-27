@@ -8,7 +8,7 @@ Name:		aom
 %define	basever	1.0.0
 %define	subver	errata1
 Version:	%{basever}.%{subver}
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 # tarball is recreated with different md5 on each download
@@ -82,7 +82,7 @@ Graficzny analizator formatu AOM.
 %setup -qc
 %patch0 -p1
 
-%{__sed} -i -e 's/^Next Release/v%{version}/' CHANGELOG
+%{__sed} -i -e 's/^Next Release/2018-06-28 v%{version}/' CHANGELOG
 
 %build
 install -d builddir
