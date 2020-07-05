@@ -11,8 +11,8 @@ License:	BSD
 Group:		Libraries
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz?fake=/%{name}-%{version}.tar.gz
-# Source0-md5:	28cfda7b3d9b7e9f4ef89437cb96d6ff
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	28cfda7b3d9b7e9f4ef89437cb96d6ff
 URL:		https://aomedia.org/
 BuildRequires:	cmake >= 3.5
 BuildRequires:	doxygen
