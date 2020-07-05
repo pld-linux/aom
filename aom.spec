@@ -5,17 +5,14 @@
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
-%define	basever	1.0.0
-%define	subver	errata1
-Version:	%{basever}.%{subver}
-Release:	2
+Version:	2.0.0
+Release:	1
 License:	BSD
 Group:		Libraries
 # tarball is recreated with different md5 on each download
-#Source0:	https://aomedia.googlesource.com/aom/+archive/v%{basever}-%{subver}.tar.gz?fake=/%{name}-%{version}.tar.gz
+#Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz?fake=/%{name}-%{version}.tar.gz
+# Source0-md5:	28cfda7b3d9b7e9f4ef89437cb96d6ff
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	5b22f5d026057ded5339bd17fd214e8a
-Patch0:		%{name}-build.patch
 URL:		https://aomedia.org/
 BuildRequires:	cmake >= 3.5
 BuildRequires:	doxygen
@@ -66,6 +63,32 @@ format.
 Pliki programistyczne AOM - formatu obrazu nowej generacji, bez opłat
 licencyjnych.
 
+%package static
+Summary:	Static AOM library
+Summary(pl.UTF-8):	Statyczna biblioteka AOM
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static AOM library.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka AOM.
+
+%package apidocs
+Summary:	API documentation for AOM library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki AOM
+Group:		Documentation
+%if "%{_rpmversion}" >= "4.6"
+BuildArch:	noarch
+%endif
+
+%description apidocs
+API documentation for AOM library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki AOM.
+
 %package gui
 Summary:	Graphical analyzer for AOM
 Summary(pl.UTF-8):	Graficzny analizator formatu AOM
@@ -80,15 +103,15 @@ Graficzny analizator formatu AOM.
 
 %prep
 %setup -qc
-%patch0 -p1
-
-%{__sed} -i -e 's/^Next Release/2018-06-28 v%{version}/' CHANGELOG
 
 %build
 install -d builddir
 cd builddir
+# build/cmake/aom_install.cmake and .pc creation expect relative ..._{BINDIR,INCLUDEDIR,LIBDIR}
 %cmake .. \
-	-DLIB_INSTALL_DIR=%{_libdir} \
+	-DCMAKE_INSTALL_BINDIR:PATH=bin \
+	-DCMAKE_INSTALL_INCLUDEDIR:PATH=include \
+	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
 %ifnarch aarch64 %{arm} %{ix86} %{x8664}
 	-DAOM_TARGET_CPU=generic \
 %endif
@@ -120,7 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C builddir install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{?with_wxwidgets:install -pm 0755 builddir/examples/analyzer $RPM_BUILD_ROOT%{_bindir}/aomanalyzer}
+%{?with_wxwidgets:install -p builddir/examples/analyzer $RPM_BUILD_ROOT%{_bindir}/aomanalyzer}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -133,14 +156,22 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS CHANGELOG LICENSE PATENTS README.md
 %attr(755,root,root) %{_bindir}/aomdec
 %attr(755,root,root) %{_bindir}/aomenc
-%attr(755,root,root) %{_libdir}/libaom.so.0
+%attr(755,root,root) %{_libdir}/libaom.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libaom.so.2
 
 %files devel
 %defattr(644,root,root,755)
-%doc builddir/docs/html/*
 %attr(755,root,root) %{_libdir}/libaom.so
 %{_includedir}/aom
 %{_pkgconfigdir}/aom.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libaom.a
+
+%files apidocs
+%defattr(644,root,root,755)
+%doc builddir/docs/html/*
 
 %if %{with wxwidgets}
 %files gui
