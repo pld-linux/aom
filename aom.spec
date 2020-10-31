@@ -9,6 +9,7 @@ Version:	2.0.0
 Release:	1
 License:	BSD
 Group:		Libraries
+#Source0Download: https://aomedia.googlesource.com/aom/
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz?fake=/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
