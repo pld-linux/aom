@@ -81,7 +81,7 @@ Statyczna biblioteka AOM.
 Summary:	API documentation for AOM library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki AOM
 Group:		Documentation
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 API documentation for AOM library.
