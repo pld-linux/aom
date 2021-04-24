@@ -5,7 +5,7 @@
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
-Version:	2.0.2
+Version:	3.0.0
 Release:	1
 License:	BSD
 Group:		Libraries
@@ -13,10 +13,11 @@ Group:		Libraries
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz?fake=/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	b7d3f2b146569cbb7bcadf19bc173000
+# Source0-md5:	541a828f0d933e9d086c976fe1bb6374
+Patch0:		%{name}-examples.patch
 URL:		https://aomedia.org/
-BuildRequires:	cmake >= 3.5
-BuildRequires:	doxygen
+BuildRequires:	cmake >= 3.6
+BuildRequires:	doxygen >= 1:1.8.10
 BuildRequires:	graphviz
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpm-build >= 4.6
@@ -104,6 +105,7 @@ Graficzny analizator formatu AOM.
 
 %prep
 %setup -qc
+%patch0 -p1
 
 %build
 install -d builddir
@@ -158,7 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/aomdec
 %attr(755,root,root) %{_bindir}/aomenc
 %attr(755,root,root) %{_libdir}/libaom.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libaom.so.2
+%attr(755,root,root) %ghost %{_libdir}/libaom.so.3
 
 %files devel
 %defattr(644,root,root,755)
@@ -172,7 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files apidocs
 %defattr(644,root,root,755)
-%doc builddir/docs/html/*
+%doc builddir/docs/html/*.{css,html,js,png}
 
 %if %{with wxwidgets}
 %files gui

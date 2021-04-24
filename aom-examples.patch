@@ -1,0 +1,10 @@
+--- aom-3.0.0/examples/analyzer.cc.orig	2021-04-24 08:09:35.000000000 +0200
++++ aom-3.0.0/examples/analyzer.cc	2021-04-24 09:19:33.554918811 +0200
+@@ -39,6 +39,7 @@
+ 
+   AvxVideoReader *reader;
+   const AvxVideoInfo *info;
++  aom_codec_iface_t *decoder;
+ 
+   insp_frame_data frame_data;
+ 
