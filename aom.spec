@@ -2,6 +2,10 @@
 # Conditional build:
 %bcond_without	wxwidgets	# wxWidgets based analyzer
 
+%ifarch %{arm_with_neon}
+%define		with_neon	1
+%endif
+
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
@@ -21,7 +25,7 @@ BuildRequires:	doxygen >= 1:1.8.10
 BuildRequires:	graphviz
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.007
 BuildRequires:	sed >= 4.0
 %{?with_wxwidgets:BuildRequires:	wxGTK3-unicode-devel}
 BuildRequires:	yasm
@@ -135,6 +139,7 @@ cd builddir
 	-DCONFIG_WEBM_IO=1 \
 	-DENABLE_CCACHE=1 \
 	-DENABLE_DOCS=1 \
+	%{cmake_on_off neon ENABLE_NEON} \
 	-DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-gtk3-unicode-config
 
 %{__make}
