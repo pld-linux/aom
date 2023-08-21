@@ -137,7 +137,6 @@ cd builddir
 	-DCMAKE_SKIP_RPATH=1 \
 	%{?with_wxwidgets:-DCONFIG_ANALYZER=1} \
 	-DCONFIG_WEBM_IO=1 \
-	-DENABLE_CCACHE=1 \
 	-DENABLE_DOCS=1 \
 	%{cmake_on_off neon ENABLE_NEON} \
 	-DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-gtk3-unicode-config
