@@ -9,7 +9,7 @@
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
-Version:	3.8.2
+Version:	3.9.0
 Release:	1
 License:	BSD
 Group:		Libraries
@@ -17,7 +17,7 @@ Group:		Libraries
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	4702f686cc18a6736ca7f1f6d1e025b0
+# Source0-md5:	9ce6551fca644108cebbe6dadd9461b1
 Patch0:		%{name}-examples.patch
 URL:		https://aomedia.org/
 BuildRequires:	cmake >= 3.9
