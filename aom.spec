@@ -123,7 +123,7 @@ cd builddir
 	-DAOM_TARGET_CPU=generic \
 %endif
 %ifarch %{arm}
-	-DAOM_TARGET_CPU=arm \
+	-DAOM_TARGET_CPU=%{_target_cpu} \
 %endif
 %ifarch aarch64
 	-DAOM_TARGET_CPU=arm64 \
