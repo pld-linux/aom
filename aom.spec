@@ -109,7 +109,7 @@ Graficzny analizator formatu AOM.
 
 %prep
 %setup -qc
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 install -d builddir
