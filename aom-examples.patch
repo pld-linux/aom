@@ -8,23 +8,3 @@
  
    insp_frame_data frame_data;
  
---- aom-3.12.0/examples/inspect.c.orig	2025-02-21 19:06:06.024000000 +0100
-+++ aom-3.12.0/examples/inspect.c	2025-02-21 22:53:21.567052398 +0100
-@@ -624,7 +624,7 @@ static void inspect(void *pbi, void *dat
-   (void)data;
-   // We allocate enough space and hope we don't write out of bounds. Totally
-   // unsafe but this speeds things up, especially when compiled to Javascript.
--  char *buffer = aom_malloc(MAX_BUFFER);
-+  char *buffer = malloc(MAX_BUFFER);
-   if (!buffer) {
-     fprintf(stderr, "Error allocating inspect info buffer\n");
-     abort();
-@@ -742,7 +742,7 @@ static void inspect(void *pbi, void *dat
-   buf += put_str(buf, "},\n");
-   *(buf++) = 0;
-   on_frame_decoded_dump(buffer);
--  aom_free(buffer);
-+  free(buffer);
- }
- 
- static void ifd_init_cb(void) {

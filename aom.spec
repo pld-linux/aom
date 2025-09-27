@@ -9,7 +9,7 @@
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
-Version:	3.12.0
+Version:	3.13.1
 Release:	1
 License:	BSD
 Group:		Libraries
@@ -17,10 +17,10 @@ Group:		Libraries
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	26224ce50ea269a4780dad803206e717
+# Source0-md5:	a87168abeed228c368520cdc288f7a78
 Patch0:		%{name}-examples.patch
 URL:		https://aomedia.org/
-BuildRequires:	cmake >= 3.9
+BuildRequires:	cmake >= 3.16
 BuildRequires:	doxygen >= 1:1.8.10
 BuildRequires:	graphviz
 BuildRequires:	libstdc++-devel
@@ -164,12 +164,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/aomdec
 %attr(755,root,root) %{_bindir}/aomenc
 %attr(755,root,root) %{_libdir}/libaom.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libaom.so.3
+%ghost %{_libdir}/libaom.so.3
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libaom.so
+%{_libdir}/libaom.so
 %{_includedir}/aom
+%{_libdir}/cmake/AOM
 %{_pkgconfigdir}/aom.pc
 
 %files static
