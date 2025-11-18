@@ -10,7 +10,7 @@ Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
 Version:	3.13.1
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 #Source0Download: https://aomedia.googlesource.com/aom/
