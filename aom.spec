@@ -9,15 +9,15 @@
 Summary:	Royalty-free next-generation video format
 Summary(pl.UTF-8):	Format wideo nowej generacji bez opłat licencyjnych
 Name:		aom
-Version:	3.13.1
-Release:	3
+Version:	3.14.1
+Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://aomedia.googlesource.com/aom/
 # tarball is recreated with different md5 on each download
 #Source0:	https://aomedia.googlesource.com/aom/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	a87168abeed228c368520cdc288f7a78
+# Source0-md5:	745172019cc52310b59861e6bb198015
 Patch0:		%{name}-examples.patch
 URL:		https://aomedia.org/
 BuildRequires:	cmake >= 3.16
@@ -25,7 +25,7 @@ BuildRequires:	doxygen >= 1:1.8.10
 BuildRequires:	graphviz
 BuildRequires:	libstdc++-devel
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 2.007
+BuildRequires:	rpmbuild(macros) >= 2.047
 BuildRequires:	sed >= 4.0
 %{?with_wxwidgets:BuildRequires:	wxGTK3-unicode-devel}
 BuildRequires:	yasm
@@ -112,10 +112,8 @@ Graficzny analizator formatu AOM.
 %patch -P0 -p1
 
 %build
-install -d builddir
-cd builddir
-# build/cmake/aom_install.cmake and .pc creation expect relative ..._{BINDIR,INCLUDEDIR,LIBDIR}
-%cmake .. \
+# .pc creation expects relative ..._{BINDIR,INCLUDEDIR,LIBDIR} (see cmake/pkg_config.cmake)
+%cmake -B build \
 	-DCMAKE_INSTALL_BINDIR:PATH=bin \
 	-DCMAKE_INSTALL_INCLUDEDIR:PATH=include \
 	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
@@ -138,19 +136,20 @@ cd builddir
 	%{?with_wxwidgets:-DCONFIG_ANALYZER=1} \
 	-DCONFIG_WEBM_IO=1 \
 	-DENABLE_DOCS=1 \
-	%{cmake_on_off neon ENABLE_NEON} \
+	-DENABLE_NEON=%{__ON_OFF neon} \
 	-DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-gtk3-unicode-config
 
-%{__make}
-
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C builddir install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{?with_wxwidgets:install -p builddir/examples/analyzer $RPM_BUILD_ROOT%{_bindir}/aomanalyzer}
+%if %{with wxwidgets}
+install -p build/examples/analyzer $RPM_BUILD_ROOT%{_bindir}/aomanalyzer
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -163,7 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS CHANGELOG LICENSE PATENTS README.md
 %attr(755,root,root) %{_bindir}/aomdec
 %attr(755,root,root) %{_bindir}/aomenc
-%attr(755,root,root) %{_libdir}/libaom.so.*.*.*
+%{_libdir}/libaom.so.*.*.*
 %ghost %{_libdir}/libaom.so.3
 
 %files devel
@@ -179,7 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files apidocs
 %defattr(644,root,root,755)
-%doc builddir/docs/html/*.{css,html,js,png}
+%doc build/docs/html/*.{css,html,js,png}
 
 %if %{with wxwidgets}
 %files gui
