@@ -61,7 +61,7 @@ formatu wideo, który jest:
 Summary:	Development files for AOM
 Summary(pl.UTF-8):	Pliki programistyczne AOM
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development files for AOM the royalty-free next-generation video
@@ -75,7 +75,7 @@ licencyjnych.
 Summary:	Static AOM library
 Summary(pl.UTF-8):	Statyczna biblioteka AOM
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 Static AOM library.
@@ -99,7 +99,7 @@ Dokumentacja API biblioteki AOM.
 Summary:	Graphical analyzer for AOM
 Summary(pl.UTF-8):	Graficzny analizator formatu AOM
 Group:		X11/Applications/Multimedia
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description gui
 Graphical analyzer for AOM.
